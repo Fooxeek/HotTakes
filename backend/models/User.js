@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const mongooseErrors = require('mongoose-errors')
+const MongooseErrors = require('mongoose-errors');
 const uniqueValidator = require('mongoose-unique-validator');
 
 
@@ -9,6 +9,6 @@ const userSchema = mongoose.Schema({
 });
 
 userSchema.plugin(uniqueValidator);
-userSchema.plugin(mongooseErrors);
+userSchema.plugin(MongooseErrors);
 
 module.exports = mongoose.model('User', userSchema);

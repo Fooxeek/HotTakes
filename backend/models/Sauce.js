@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const MongooseErrors = require('mongoose-errors')
+const MongooseErrors = require('mongoose-errors');
 
 
 //Modèle des informations requise pour ajouter une sauce à la bdd

@@ -11,7 +11,7 @@ const dotenv = require('dotenv'); dotenv.config();
 
 const limiter = rateLimit({
 	windowMs: 15 * 60 * 1000, // 15 minutes
-	max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+	max: 5, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
 	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 })
@@ -28,8 +28,7 @@ app.use(cors())
 //Modification du middleware crossOriginRessourcePolicy de helmet pour autoriser l'affichage des images depuis tout site
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
-//Appliquer le middleware de limitation de débit à toutes les requêtes
-app.use(limiter)
+
 
 //Informations CORS
 app.use((req, res, next) => {
@@ -40,7 +39,7 @@ app.use((req, res, next) => {
 });
 
 //Routes que va suivre l'API à chaque appel
-app.use('/api/auth', userRoutes);
+app.use('/api/auth', limiter, userRoutes);
 app.use('/api/sauces', userSauces);
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
